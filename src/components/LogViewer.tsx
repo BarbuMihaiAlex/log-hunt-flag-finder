@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { LogEntry } from '@/utils/logData';
 import { format, parseISO } from 'date-fns';
 import { AlertCircle, AlertTriangle, ChevronDown, ChevronRight, Copy, Info, ZapOff } from 'lucide-react';
-import { highlightText } from '@/utils/searchUtils';
+import HighlightText from './HighlightText';
 
 interface LogViewerProps {
   log: LogEntry | null;
@@ -81,7 +81,7 @@ const LogViewer = ({ log, searchQuery, onClose }: LogViewerProps) => {
             </div>
             <div>
               <h3 className="text-lg font-medium">
-                {searchQuery ? highlightText(log.message, searchQuery) : log.message}
+                <HighlightText text={log.message} searchTerm={searchQuery} />
               </h3>
               <div className="flex items-center mt-1 text-sm text-muted-foreground">
                 <span>{format(parseISO(log.timestamp), 'MMM d, yyyy HH:mm:ss')}</span>
@@ -135,7 +135,7 @@ const LogViewer = ({ log, searchQuery, onClose }: LogViewerProps) => {
                     <span className="text-muted-foreground">{key}:</span>{' '}
                     <span className="text-foreground">
                       {typeof value === 'string' 
-                        ? (searchQuery ? highlightText(value, searchQuery) : value)
+                        ? <HighlightText text={value} searchTerm={searchQuery} />
                         : JSON.stringify(value)}
                     </span>
                   </div>

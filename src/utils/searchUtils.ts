@@ -1,4 +1,3 @@
-
 import { LogEntry, LogType } from './logData';
 
 export interface SearchFilters {
@@ -114,26 +113,4 @@ export const extractIPs = (logs: LogEntry[]): string[] => {
 // Check if a specific log entry contains part of the flag
 export const checkLogForFlag = (log: LogEntry): boolean => {
   return !!log.containsFlag;
-};
-
-// Highlight search terms in text
-export const highlightText = (text: string, searchTerm: string): JSX.Element => {
-  if (!searchTerm.trim()) {
-    return <>{text}</>;
-  }
-
-  const regex = new RegExp(`(${searchTerm.trim()})`, 'gi');
-  const parts = text.split(regex);
-
-  return (
-    <>
-      {parts.map((part, i) => (
-        regex.test(part) ? 
-          <span key={i} className="bg-highlight/20 text-highlight font-medium px-1 rounded">
-            {part}
-          </span> : 
-          <span key={i}>{part}</span>
-      ))}
-    </>
-  );
 };
